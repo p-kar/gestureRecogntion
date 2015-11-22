@@ -1,0 +1,5 @@
+export MATLAB=/Applications/MATLAB_R2014a.app
+export PATH=$PATH:/Applications/MATLAB_R2014a.app/bin
+export PATH=$PATH:/Applications/MATLAB_R2014a.app/bin/maci64
+// Most important one
+export DYLD_LIBRARY_PATH=/Applications/MATLAB_R2014a.app/bin/maci64:$DYLD_LIBRARY_PATH
