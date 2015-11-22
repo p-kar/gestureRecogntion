@@ -1,4 +1,6 @@
 function generateDataset()
+min_rows = 30;
+num_features = 10;
 % class_names = {'alive' 'all' 'boy' 'building' 'buy' 'cold' 'come' 'computer' 'cost' 'crazy' 'danger' 'deaf' 'different' 'girl' 'glove' 'go' 'God' 'joke' 'juice' 'man' 'where' 'which' 'yes' 'you' 'zero'};
 class_names = {'circle' 'leftright' 'updown'};
 % root_dir = './dataset';
@@ -10,7 +12,7 @@ dir_list = dir_list(~ismember(dir_list,{'.','..'}));
 dataset = [];
 labels = {};
 for i = 1:length(dir_list)
-    dir_path = sprintf('%s/%s/*.tgd', root_dir, dir_list{i}); %tfd
+    dir_path = sprintf('%s/%s/*.tgd', root_dir, dir_list{i}); %tsd
     files = dir(dir_path);
     for j = 1:length(files)
         file_path = sprintf('%s/%s/%s', root_dir, dir_list{i}, files(j).name);
@@ -31,11 +33,11 @@ for i = 1:length(dir_list)
         end
         M = read_mixed_csv(file_path, '\t');
         [m,n] = size(M);
-        if(m < 29)
+        if(m < min_rows)
             continue;
         end
 %         M = M(1:50, 1:22); % big data
-        M = M(1:30, 1:10);
+        M = M(1:min_rows, 1:num_features);
         M = cellfun(@str2num, M);
         dataset = cat(3, dataset, M);
         labels{end + 1} = c_name;

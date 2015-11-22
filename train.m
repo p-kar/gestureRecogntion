@@ -1,8 +1,9 @@
 function train(dataset, data_labels)
 r = 1; % number of principle eigenvectors of F
-s = 4; % number of principle eigenvectors of G (22 for big data)
+s = 5; % number of principle eigenvectors of G (22 for big data)
+trainPartSize = 0.70;
 [m, n, dsize] = size(dataset);
-tr_size = int32(dsize*0.80);
+tr_size = int32(dsize*trainPartSize);
 trainData = dataset(:,:,1:tr_size);
 labels = data_labels(1:tr_size);
 testData = dataset(:,:,tr_size+1:end);
@@ -21,6 +22,9 @@ for i = 1:c
 end
 save('model.mat', 'M', 'Ur', 'Vs');
 disp('Created Model');
-disp(test_labels);
-calcAccuracy(testData, test_labels);
+% disp(test_labels);
+pred_labels = calcAccuracy(testData, test_labels);
+[C, order] = confusionmat(test_labels, pred_labels);
+disp(C);
+disp(order);
 end
