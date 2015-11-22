@@ -9,6 +9,8 @@
 #include <string.h>
 #include <errno.h>
 
+#define MAX_GESTURES 5
+
 using namespace cv;
 using namespace cvb;
 
@@ -21,12 +23,12 @@ int main(int argc, char const *argv[])
 	cvNamedWindow("LiveFeed",CV_WINDOW_AUTOSIZE);
 	int gest_no = 0;
 	cvNamedWindow("sliders", CV_WINDOW_NORMAL);
-	cvCreateTrackbar("gesture number","sliders",&gest_no,5,0);
+	cvCreateTrackbar("gesture number","sliders",&gest_no,MAX_GESTURES,0);
 	vector<string> gestureName;
 	gestureName.push_back("circle");
 	gestureName.push_back("leftright");
 	gestureName.push_back("updown");
-	vector<int> gestCount(5, 0);
+	vector<int> gestCount(MAX_GESTURES, 0);
 
 	IplImage* labelImg = cvCreateImage(cvSize(640, 480),IPL_DEPTH_LABEL,1);
 	IplImage* seg_a = cvCreateImage(cvSize(640, 400), 8, 1);
